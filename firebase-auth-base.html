@@ -11,6 +11,46 @@
         return loginState
       }
 
+      function getUserName() {
+        var user = firebase.auth().currentUser
+        if (user == null)
+          return ""
+
+        return user.name
+      }
+
+      function getUserEmail() {
+        var user = firebase.auth().currentUser
+        if (user == null)
+          return ""
+          
+        return user.email
+      }
+
+      function getUserPhotoUrl() {
+        var user = firebase.auth().currentUser
+        if (user == null)
+          return ""
+          
+        return user.photoURL
+      }
+
+      function getUserUid() {
+        var user = firebase.auth().currentUser
+        if (user == null)
+          return ""
+          
+        return user.uid
+      }
+
+      function getUserEmailVerified() {
+        var user = firebase.auth().currentUser
+        if (user == null)
+          return ""
+          
+        return user.emailVerified
+      }
+
       function initializeFirebase(config) {
         firebase.initializeApp(config);
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
