@@ -6,6 +6,25 @@
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript">
+      function providerToString(provider) {
+        switch(provider) {
+          case firebase.auth.GoogleAuthProvider.PROVIDER_ID:
+            return "Google"
+          case firebase.auth.FacebookAuthProvider.PROVIDER_ID:
+            return "Facebook"
+          case firebase.auth.TwitterAuthProvider.PROVIDER_ID:
+            return "Twitter"
+          case firebase.auth.GithubAuthProvider.PROVIDER_ID:
+            return "Github"
+          case firebase.auth.EmailAuthProvider.PROVIDER_ID:
+            return "Email"
+          case firebase.auth.PhoneAuthProvider.PROVIDER_ID:
+            return "Phone"
+          default:
+            return "UnknownProvider"
+        }
+      }
+
       var loginState = "failed"
       function getLoginState() {
         return loginState
@@ -49,6 +68,20 @@
           return ""
           
         return user.emailVerified
+      }
+
+      function getUserProviders() {
+        var user = firebase.auth().currentUser
+        var providers = ""
+        if (user == null)
+          return providers
+          
+        user.providerData.forEach(element => {
+          if (providers != "")
+            providers += ";"
+          providers += providerToString(element.providerId)
+        });
+        return providers
       }
 
       function initializeFirebase(config) {
